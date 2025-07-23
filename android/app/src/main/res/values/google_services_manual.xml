@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Your Web Client ID from GCP 'installed' JSON -->
+    <string name="default_web_client_id">468317040167-o89herafb8knndllbp9fsuvl53g3896n.apps.googleusercontent.com</string>
+
+    <!-- Project ID -->
+    <string name="project_id">voyage-466805</string>
+
+    <!-- Google App ID: This usually comes from Firebase;
+         you'll either define a custom one here or leave it blank -->
+    <string name="google_app_id">1:468317040167:android:YOUR_APP_HASH</string>
+
+    <!-- API Key must be created manually in GCP (APIs & Services → Credentials → Create API key) :contentReference[oaicite:0]{index=0} -->
+    <string name="google_api_key">YOUR_MANUALLY_CREATED_API_KEY</string>
+
+    <!-- GCM sender ID for messaging, optional -->
+    <string name="gcm_defaultSenderId">468317040167</string>
+</resources>
