@@ -275,64 +275,66 @@ class _PreferencesSetupPageState extends State<PreferencesSetupPage> {
   final TextEditingController _engLevelController = TextEditingController();
 
   Widget _personalDetailPage() {
-    return Padding(
-      padding: 20.padHor,
-      child: Column(
-        children: [
-          Text(
-            "Welcome to your IELTS \n Journey?",
-            style: AppStyles.text24PxSemiBold.white,
-            textAlign: TextAlign.center,
-          ),
-          12.height,
-          Text(
-            "Please give some true answers for \n following question",
-            style: AppStyles.text16PxSemiBold.dark400,
-            textAlign: TextAlign.center,
-          ),
-          40.height,
-          AppTextField(
-            onTap: () => _selectDate(context),
-            focusNode: null,
-            isFocused: false,
-            hintText: "Date of Birth",
-            enabled: false,
-            controller: _dobController,
-            borderRadius: 12,
-            iconData: Icons.calendar_month,
-          ),
-          16.height,
-          AppTextField(
-            onTap: () => _selectGender(context),
-            focusNode: null,
-            isFocused: false,
-            enabled: false,
-            hintText: "Gender",
-            controller: _genderController,
-            iconData: Icons.person,
-          ),
-          16.height,
-          AppTextField(
-            focusNode: _phoneFocusNode,
-            isFocused: _isPhoneFocused,
-            hintText: "Phone Number",
-            controller: _phoneController,
-            keyboardType: TextInputType.phone,
-            iconData: Icons.phone,
-          ),
-          16.height,
-          AppTextField(
-            focusNode: null,
-            isFocused: false,
-            hintText: "Current English Level",
-            controller: _engLevelController,
-            iconData: Icons.language,
-            suffixIconData: Icons.keyboard_arrow_down,
-            onTap: () {
-              //doalog to sheo eng sepaking level
-            },
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: 20.padHor,
+        child: Column(
+          children: [
+            Text(
+              "Welcome to your IELTS \n Journey?",
+              style: AppStyles.text24PxSemiBold.white,
+              textAlign: TextAlign.center,
+            ),
+            12.height,
+            Text(
+              "Please give some true answers for \n following question",
+              style: AppStyles.text16PxSemiBold.dark400,
+              textAlign: TextAlign.center,
+            ),
+            40.height,
+            AppTextField(
+              onTap: () => _selectDate(context),
+              focusNode: null,
+              isFocused: false,
+              hintText: "Date of Birth",
+              enabled: false,
+              controller: _dobController,
+              borderRadius: 12,
+              iconData: Icons.calendar_month,
+            ),
+            16.height,
+            AppTextField(
+              onTap: () => _selectGender(context),
+              focusNode: null,
+              isFocused: false,
+              enabled: false,
+              hintText: "Gender",
+              controller: _genderController,
+              iconData: Icons.person,
+            ),
+            16.height,
+            AppTextField(
+              focusNode: _phoneFocusNode,
+              isFocused: _isPhoneFocused,
+              hintText: "Phone Number",
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              iconData: Icons.phone,
+            ),
+            16.height,
+            AppTextField(
+              focusNode: null,
+              isFocused: false,
+              hintText: "Current English Level",
+              controller: _engLevelController,
+              iconData: Icons.language,
+              suffixIconData: Icons.keyboard_arrow_down,
+              onTap: () {
+                //doalog to sheo eng sepaking level
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -378,109 +380,111 @@ class _PreferencesSetupPageState extends State<PreferencesSetupPage> {
   ];
 
   Widget _ieltsGoalsPage() {
-    return Padding(
-      padding: 20.padHor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Your IELTS Goals",
-                style: AppStyles.text24PxSemiBold.white,
-                textAlign: TextAlign.center,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: 20.padHor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Your IELTS Goals",
+                  style: AppStyles.text24PxSemiBold.white,
+                  textAlign: TextAlign.center,
+                ),
+                12.height,
+                Text(
+                  "Tell us about your target score  and timeline",
+                  style: AppStyles.text16PxSemiBold.dark400,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+      
+            40.height,
+            Text('Target IELTS Score', style: AppStyles.text16PxSemiBold.white),
+            12.height,
+      
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.spaceBetween,
+                direction: Axis.horizontal,
+                children: _targetIeltsScore.asMap().entries.map((entry) {
+                  // final isSelected = _selectedScore == score;
+                  final index = entry.key;
+                  final score = entry.value;
+      
+                  return AppChip(
+                    onTap: () => onSelectIeltsScore(index),
+                    isActive: _selectedScoreIndex == index,
+                    visible: true,
+                    child: Text(
+                      "$score",
+                      style: AppStyles.text14PxSemiBold.white,
+                    ),
+                  );
+                }).toList(),
               ),
-              12.height,
-              Text(
-                "Tell us about your target score  and timeline",
-                style: AppStyles.text16PxSemiBold.dark400,
-                textAlign: TextAlign.center,
+            ),
+            40.height,
+            Text(
+              'When do you plan to take the test?',
+              style: AppStyles.text16PxSemiBold.white,
+            ),
+            12.height,
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                // alignment: WrapAlignment.spaceBetween,spaceBetween
+                direction: Axis.horizontal,
+                children: _duration.map((duration) {
+                  final index = _duration.indexOf(duration);
+                  return AppChip(
+                    onTap: () => onSelectDuration(index),
+                    isActive: _selectedDurationIndex == index,
+                    visible: true,
+                    child: Text(
+                      duration,
+                      style: AppStyles.text14PxSemiBold.white,
+                    ),
+                  );
+                }).toList(),
               ),
-            ],
-          ),
-
-          40.height,
-          Text('Target IELTS Score', style: AppStyles.text16PxSemiBold.white),
-          12.height,
-
-          SizedBox(
-            width: double.infinity,
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.spaceBetween,
-              direction: Axis.horizontal,
-              children: _targetIeltsScore.asMap().entries.map((entry) {
-                // final isSelected = _selectedScore == score;
-                final index = entry.key;
-                final score = entry.value;
-
-                return AppChip(
-                  onTap: () => onSelectIeltsScore(index),
-                  isActive: _selectedScoreIndex == index,
-                  visible: true,
-                  child: Text(
-                    "$score",
-                    style: AppStyles.text14PxSemiBold.white,
-                  ),
-                );
-              }).toList(),
             ),
-          ),
-          40.height,
-          Text(
-            'When do you plan to take the test?',
-            style: AppStyles.text16PxSemiBold.white,
-          ),
-          12.height,
-          SizedBox(
-            width: double.infinity,
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              // alignment: WrapAlignment.spaceBetween,spaceBetween
-              direction: Axis.horizontal,
-              children: _duration.map((duration) {
-                final index = _duration.indexOf(duration);
-                return AppChip(
-                  onTap: () => onSelectDuration(index),
-                  isActive: _selectedDurationIndex == index,
-                  visible: true,
-                  child: Text(
-                    duration,
-                    style: AppStyles.text14PxSemiBold.white,
-                  ),
-                );
-              }).toList(),
+            40.height,
+            Text(
+              'Which skill you think you need the most to improve?',
+              style: AppStyles.text16PxSemiBold.white,
             ),
-          ),
-          40.height,
-          Text(
-            'Which skill you think you need the most to improve?',
-            style: AppStyles.text16PxSemiBold.white,
-          ),
-          12.height,
-          SizedBox(
-            width: double.infinity,
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              // alignment: WrapAlignment.spaceBetween,spaceBetween
-              direction: Axis.horizontal,
-              children: _skillToImprove.map((skill) {
-                final index = _skillToImprove.indexOf(skill);
-                return AppChip(
-                  onTap: () => onSelectSkill(index),
-                  isActive: _selectedSkillIndex == index,
-                  visible: true,
-                  child: Text(skill, style: AppStyles.text14PxSemiBold.white),
-                );
-              }).toList(),
+            12.height,
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                // alignment: WrapAlignment.spaceBetween,spaceBetween
+                direction: Axis.horizontal,
+                children: _skillToImprove.map((skill) {
+                  final index = _skillToImprove.indexOf(skill);
+                  return AppChip(
+                    onTap: () => onSelectSkill(index),
+                    isActive: _selectedSkillIndex == index,
+                    visible: true,
+                    child: Text(skill, style: AppStyles.text14PxSemiBold.white),
+                  );
+                }).toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

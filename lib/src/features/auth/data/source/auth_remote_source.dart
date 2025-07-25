@@ -9,13 +9,14 @@ abstract class AuthRemoteSource {
   Future<ApiResponse<AuthResponse>> signUp(String email, String password, Map<String, dynamic>? data);
   Future<ApiResponse<AuthResponse>> signInWithGoogle();
   Future<ApiResponse<AuthResponse>> signInWithApple();
-   // Future<void> signOut();
+   Future<ApiResponse<void>> signOut();
   // User? getCurrentUser();
 }
 
 @LazySingleton(as: AuthRemoteSource)
 class AuthRemoteSourceImpl implements AuthRemoteSource{
   final SupabaseClient client = Supabase.instance.client;
+  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
   @override
   Future<ApiResponse<AuthResponse>> signIn(String email, String password) async {
@@ -64,7 +65,7 @@ class AuthRemoteSourceImpl implements AuthRemoteSource{
   @override
   Future<ApiResponse<AuthResponse>> signInWithGoogle() async{
     try{
-      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
       await googleSignIn.initialize();
       final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
       final String idToken = googleUser.authentication.idToken!;
@@ -119,6 +120,25 @@ class AuthRemoteSourceImpl implements AuthRemoteSource{
     //   throw AppException(message: "Something went wrong");
     // }
 
+  }
+
+  @override
+  Future<ApiResponse<void>> signOut() async{
+    try{
+
+      await googleSignIn.initialize();
+      await client.auth.signOut();
+      await googleSignIn.signOut();
+
+      return ApiResponse(
+        message: "Sign out successful",
+      );
+
+    }on AuthException catch(e) {
+      throw AppException(message: e.message);
+    }on Exception catch(e) {
+      throw AppException(message: "Something went wrong");
+    }
   }
   
 }

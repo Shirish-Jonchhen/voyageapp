@@ -57,73 +57,76 @@ class _OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
         backgroundColor: AppColors.black,
       ),
       backgroundColor: AppColors.black,
-      body: Padding(
-        padding: 20.padAll,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            150.height,
-            SizedBox(
-              height: 352, // Set your desired height
-              child: PageView.builder(
-                controller: _pageImageController,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 3,
-
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: Image.asset(
-                      pageImages[index],
-                      // Replace with your image path
-                      height: 352,
-                      width: 352,
-                      fit: BoxFit.cover, // Optional, controls scaling
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            15.height,
-
-            GradientDotsIndicator(
-              dotsCount: 3,
-              currentIndex: currentIndex,
-              activeGradient: AppColors.primaryMain,
-              activeBorderRadius: BorderRadius.circular(5),
-              activeDotSize: const Size(32, 6),
-              dotSize: const Size(16, 6),
-              duration: Duration(milliseconds: 100),
-              curve: Curves.easeInToLinear,
-            ),
-
-            20.height,
-            SizedBox(
-              height: 90,
-              child: PageView.builder(
-                controller: _pageContentController,
-                itemCount: 3,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        pageContents[index]['title'] ?? '',
-                        style: AppStyles.text24PxSemiBold.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: 20.padAll,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              140.height,
+              // Expanded(child: Container()),
+              SizedBox(
+                height: 352, // Set your desired height
+                child: PageView.builder(
+                  controller: _pageImageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+        
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: Image.asset(
+                        pageImages[index],
+                        // Replace with your image path
+                        height: 352,
+                        width: 352,
+                        fit: BoxFit.cover, // Optional, controls scaling
                       ),
-                      8.height,
-                      Text(
-                        pageContents[index]['description'] ?? '',
-                        style: AppStyles.text14PxRegular.white,
-                      ),
-                    ],
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+        
+              15.height,
+        
+              GradientDotsIndicator(
+                dotsCount: 3,
+                currentIndex: currentIndex,
+                activeGradient: AppColors.primaryMain,
+                activeBorderRadius: BorderRadius.circular(5),
+                activeDotSize: const Size(32, 6),
+                dotSize: const Size(16, 6),
+                duration: Duration(milliseconds: 100),
+                curve: Curves.easeInToLinear,
+              ),
+        
+              20.height,
+              SizedBox(
+                height: 90,
+                child: PageView.builder(
+                  controller: _pageContentController,
+                  itemCount: 3,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          pageContents[index]['title'] ?? '',
+                          style: AppStyles.text24PxSemiBold.white,
+                        ),
+                        8.height,
+                        Text(
+                          pageContents[index]['description'] ?? '',
+                          style: AppStyles.text14PxRegular.white,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
