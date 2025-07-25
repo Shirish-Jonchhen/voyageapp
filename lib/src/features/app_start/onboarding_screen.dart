@@ -52,6 +52,10 @@ class _OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: AppColors.black,
+      ),
       backgroundColor: AppColors.black,
       body: Padding(
         padding: 20.padAll,

@@ -139,6 +139,11 @@ class _LoginPageState extends State<LoginPage> {
               20.height,
 
               AppCard(
+                padding: 12.5.padAll,
+                borderRadius: 8,
+                onTap: (){
+                  context.router.push(const PreferencesSetupRoute());
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -169,6 +174,8 @@ class _LoginPageState extends State<LoginPage> {
                  ))
                      ?
                  AppCard(
+                   padding: 12.5.padAll,
+                   borderRadius: 8,
                    onTap: (){
                      print("Loading state");
                    },
@@ -194,6 +201,8 @@ class _LoginPageState extends State<LoginPage> {
                  )
                      :
                     AppCard(
+                      padding: 12.5.padAll,
+                      borderRadius: 8,
                      onTap: (){
                        context.read<LoginCubit>().loginWithGoogle();
                      },

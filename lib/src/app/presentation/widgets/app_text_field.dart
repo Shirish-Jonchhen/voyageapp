@@ -5,16 +5,19 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_styles.dart';
 
 class AppTextField extends StatelessWidget {
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool isFocused;
   final String hintText;
   final TextEditingController controller;
   final bool obscureText;
   final bool enabled;
   final IconData? iconData;
+  final IconData? suffixIconData;
   final VoidCallback? onObscureText;
   final Function(String value)? onChanged;
   final TextInputType keyboardType;
+  final double borderRadius;
+  final Function()? onTap;
 
   const AppTextField({
     super.key,
@@ -26,7 +29,11 @@ class AppTextField extends StatelessWidget {
     this.enabled = true,
     this.onObscureText,
     this.onChanged,
-    this.keyboardType = TextInputType.text, this.iconData,
+    this.borderRadius = 12.0,
+    this.keyboardType = TextInputType.text,
+    this.iconData,
+    this.onTap,
+    this.suffixIconData,
   });
 
   @override
@@ -35,12 +42,17 @@ class AppTextField extends StatelessWidget {
       duration: Duration(milliseconds: 200),
       padding: EdgeInsets.all(2), // Border thickness
       decoration: BoxDecoration(
-        gradient: isFocused
-            ? AppColors.primaryMain
-            : null,
-        borderRadius: BorderRadius.circular(8),
+        color: isFocused
+            ? null
+            : AppColors.textFieldBorderColor.withOpacity(0.2),
+        gradient: isFocused ? AppColors.primaryMain : null,
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: TextFormField(
+        readOnly: !enabled,
+        onChanged: onChanged,
+        onTap: onTap,
+        // enabled: enabled,enable
         obscureText: obscureText,
         controller: controller,
         focusNode: focusNode,
@@ -55,14 +67,11 @@ class AppTextField extends StatelessWidget {
               ? IconButton(
                   onPressed: onObscureText,
                   icon: Icon(
-                    obscureText
-                        ? Icons.visibility
-                        : Icons.visibility_off,
+                    obscureText ? Icons.visibility : Icons.visibility_off,
                     color: isFocused ? AppColors.white : AppColors.neutral,
                   ),
                 )
-              : null,
-
+              : suffixIconData!=null? Icon(suffixIconData, color: AppColors.neutral,):null,
 
           hintText: hintText,
           hintStyle: AppStyles.text14PxMedium.neutral,
@@ -72,11 +81,15 @@ class AppTextField extends StatelessWidget {
               : AppColors.textFieldFillDefault,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide: BorderSide.none,
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
             borderSide: BorderSide.none,
           ),
         ),

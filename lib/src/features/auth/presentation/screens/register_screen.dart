@@ -148,6 +148,8 @@ class _RegisterPageState extends State<RegisterPage> {
               20.height,
 
               AppCard(
+                padding: 12.5.padAll,
+                borderRadius: 8,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -177,6 +179,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ))
                     ?
                 AppCard(
+                  padding: 12.5.padAll,
+                  borderRadius: 8,
                   onTap: (){
                     print("Loading state");
                   },
@@ -202,6 +206,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 )
                     :
                 AppCard(
+                  padding: 12.5.padAll,
+                  borderRadius: 8,
                   onTap: (){
                     context.read<LoginCubit>().loginWithGoogle();
                   },

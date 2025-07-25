@@ -5,7 +5,7 @@ import 'bootstrap.dart';
 import 'src/app/presentation/app.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   // await configureInjection();
   // configLoading();
 
